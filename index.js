@@ -1,3 +1,4 @@
+
 var express = require('express');
 var socket = require('socket.io');
 
@@ -15,4 +16,9 @@ var io = socket(server);
 io.on('connection', (socket) => {
     console.log('made socket connection', socket.id);
 
+    // Handle chat event
+    socket.on('chat-to-server', function(data) {
+        // console.log(data);
+        io.sockets.emit('chat-to-client', data);
+    });
 });
